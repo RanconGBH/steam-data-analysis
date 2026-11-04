@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Steam Chart Explorer</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <main class="container">
+      <header>
+        <p class="eyebrow">Steam data project</p>
+        <h1>Steam Chart Explorer</h1>
+        <p>Build a fresh CSV that compares Steam sales-chart visibility with recent concurrent-player activity.</p>
+      </header>
+
+      <section class="controls" aria-label="Chart filters">
+        <label>Chart month <input id="month" type="month" required /></label>
+        <label>Games to sample
+          <select id="limit">
+            <option value="10">10 games</option>
+            <option value="20" selected>20 games</option>
+            <option value="30">30 games</option>
+          </select>
+        </label>
+        <button id="scrape-button">Scrape and replace CSV</button>
+      </section>
+
+      <p id="status" role="status">Choose a month, then create a fresh data file. This may take about a minute.</p>
+      <p class="method-note">“Sales signal” is Steam weekly Top Seller rank, not verified purchases. SteamCharts reports concurrent players, not unique players.</p>
+      <a id="download-link" class="download-link" href="data/latest_steam_retention.csv" download>Download current CSV</a>
+
+      <section class="dashboard" aria-label="Steam data dashboard">
+        <article class="card"><h2>30 day activity ratio by game type</h2><canvas id="retention-chart"></canvas></article>
+        <article class="card"><h2>Average concurrent players by game type</h2><canvas id="players-chart"></canvas></article>
+      </section>
+
+      <section class="card">
+        <h2>Collected records</h2>
+        <table>
+          <thead><tr><th>Game</th><th>Type</th><th>Sales rank</th><th>Price</th><th>30 day avg players</th><th>30 day change</th><th>Activity ratio</th></tr></thead>
+          <tbody id="results"></tbody>
+        </table>
+      </section>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
